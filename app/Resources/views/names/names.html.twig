@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2 class="page-header">Add Name</h2>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <h2 class="page-header">Names List</h2>
+    {% if names|length > 0 %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for name in names %}
+                <tr>
+                    <th scope="row">{{ name.id }}</th>
+                    <td>{{ name.name }}</td>
+                    <td>
+                        <a href="/name/delete/{{ name.id }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
