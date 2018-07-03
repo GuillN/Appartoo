@@ -20,50 +20,59 @@
 
 <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Symfony</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                {% if is_granted('ROLE_USER') %}
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SpaceBook</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <ul class="nav navbar-nav">
-                    <li><a href="/names">Names</a></li>
-                    <li><a href="/todo">Todos</a></li>
-                    <li><a href="/todo/create">Add Todo</a></li>
+                    <li><a href="/users">Utilisateurs</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ path('fos_user_security_logout') }}" class="btn">Déconnexion</a> </li>
+                </ul>
+            {% elseif is_granted('ROLE_USER') %}
+                <ul class="nav navbar-nav">
+                    {#<li><a href="/names">Names</a></li>#}
+                    {#<li><a href="/todo">Todos</a></li>#}
+                    {#<li><a href="/todo/create">Add Todo</a></li>#}
+                    <li><a href="/friends">Amis</a></li>
                     <li><a href="/profile">Profil</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ path('fos_user_security_logout') }}" class="btn">Log Out</a> </li>
+                    <li><a href="{{ path('fos_user_security_logout') }}" class="btn">Déconnexion</a> </li>
                 </ul>
-                {% else %}
+
+            {% else %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ path('fos_user_security_login') }}">Log In</a> </li>
-                    <li><a href="{{ path('fos_user_registration_register') }}">Register</a> </li>
+                    <li><a href="{{ path('fos_user_security_login') }}">Connexion</a> </li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">Créer un compte</a> </li>
                 </ul>
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container">
+<div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                {% for flash_message in app.session.flashbag.get('notice') %}
-                    <div class="alert alert-success">{{ flash_message }}</div>
-                {% endfor %}
-                {% block body %}{% endblock %}
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% for flash_message in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success">{{ flash_message }}</div>
+            {% endfor %}
+            {% block body %}{% endblock %}
         </div>
+    </div>
 
-    </div><!-- /.container -->
+</div><!-- /.container -->
 
 
 {% block javascripts %}{% endblock %}

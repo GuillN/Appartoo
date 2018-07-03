@@ -3,6 +3,9 @@
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit'} }) }}
     {{ form_row(form.username) }}
     {{ form_row(form.race) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.age) }}
+    {{ form_row(form.planet) }}
     {{ form_row(form.email) }}
     {{ form_row(form.current_password) }}
 

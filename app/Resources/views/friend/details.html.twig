@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <a class="btn btn-default" href="/friends" >Retour à la liste</a>
+    <hr>
+    <h2 class="page-header">{{ user.username }}</h2>
+    <ul class="list-group">
+        <li class="list-group-item">Race: {{ user.race }}</li>
+        <li class="list-group-item">Comportement: {{ user.status }}</li>
+        <li class="list-group-item">Âge: {{ user.age }}</li>
+        <li class="list-group-item">Planète d'origine: {{ user.planet }}</li>
+    </ul>
+{% endblock %}

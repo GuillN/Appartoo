@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2 class="page-header">Ajouter un ami</h2>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <h2 class="page-header">Liste de vos amis</h2>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Race</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for friend in friends %}
+                <tr>
+                    <th scope="row">{{ friend.username }}</th>
+                    <td>{{ friend.race }}</td>
+                    <td>
+                        <a href="/friend/details/{{ friend.id }}" class="btn btn-success">Détails</a>
+                        <a href="/friend/delete/{{ friend.id }}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

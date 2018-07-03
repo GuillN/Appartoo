@@ -5,6 +5,9 @@
 <div class="fos_user_user_show">
     <p style="font-size: 18px">{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p style="font-size: 18px">Race: {{ user.race }}</p>
+    <p style="font-size: 18px">Comportement: {{ user.status }}</p>
+    <p style="font-size: 18px">Âge: {{ user.age }}</p>
+    <p style="font-size: 18px">Planète d'origine: {{ user.planet }}</p>
     <p style="font-size: 18px">{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
     <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-primary">Modifier ses informations</a>
 </div>
