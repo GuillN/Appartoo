@@ -3,140 +3,47 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="`user`")
  */
-class User implements UserInterface
-{
+class User extends BaseUser{
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string")
      */
-    private $name;
+    private $race;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @return mixed
      */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pass", type="string", length=255)
-     */
-    private $pass;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
+     * @return mixed
      */
-    public function setUsername($name)
-    {
-        $this->name = $name;
-
-        return $this;
+    public function getRace() {
+        return $this->race;
     }
 
     /**
-     * Get name
-     *
-     * @return string
+     * @param mixed $race
      */
-    public function getUsername()
-    {
-        return $this->name;
+    public function setRace($race) {
+        $this->race = $race;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set pass
-     *
-     * @param string $pass
-     *
-     * @return User
-     */
-    public function setPassword($pass)
-    {
-        $this->pass = $pass;
-
-        return $this;
-    }
-
-    /**
-     * Get pass
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->pass;
-    }
-
-    public function eraseCredentials() {
-        // TODO: Implement eraseCredentials() method.
-    }
-
-    public function getRoles() {
-        return ['ROLE_USER'];
-    }
-
-    public function getSalt() {
-        // TODO: Implement getSalt() method.
-    }
 
 }
-

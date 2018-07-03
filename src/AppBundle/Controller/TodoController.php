@@ -15,15 +15,16 @@ use AppBundle\Entity\Todo;
 class TodoController extends Controller{
 
     /**
-     * @Route("/todo", name="todo_list")
+     * @Route("/todos", name="todo_list")
      */
     public function listAction(){
-        $todos = $this->getDoctrine()
-            ->getRepository('AppBundle:Todo')
-            ->findAll();
-        return $this->render('todo/index.html.twig', array(
-            'todos' => $todos
-        ));
+
+
+
+        /*return $this->render('friends/index.html.twig', array(
+            'friends' => $friends
+        ));*/
+
     }
 
     /**

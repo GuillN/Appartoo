@@ -1,0 +1,14 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit'} }) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.race) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.current_password) }}
+
+<div>
+    <input class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    <a href="/profile" class="btn btn-info">Retour</a>
+    <input type="reset" class="btn btn-warning" value="Annuler">
+</div>
+{{ form_end(form) }}
