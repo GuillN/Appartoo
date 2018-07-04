@@ -35,6 +35,7 @@
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <ul class="nav navbar-nav">
                     <li><a href="/users">Utilisateurs</a></li>
+                    <li><a href="/todo">Todo</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ path('fos_user_security_logout') }}" class="btn">Déconnexion</a> </li>
@@ -42,9 +43,8 @@
             {% elseif is_granted('ROLE_USER') %}
                 <ul class="nav navbar-nav">
                     {#<li><a href="/names">Names</a></li>#}
-                    {#<li><a href="/todo">Todos</a></li>#}
-                    {#<li><a href="/todo/create">Add Todo</a></li>#}
                     <li><a href="/friends">Amis</a></li>
+                    <li><a href="/todo">Todo</a></li>
                     <li><a href="/profile">Profil</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -67,6 +67,9 @@
         <div class="col-md-12">
             {% for flash_message in app.session.flashbag.get('notice') %}
                 <div class="alert alert-success">{{ flash_message }}</div>
+            {% endfor %}
+            {% for flash_message in app.session.flashbag.get('error') %}
+                <div class="alert alert-danger">{{ flash_message }}</div>
             {% endfor %}
             {% block body %}{% endblock %}
         </div>

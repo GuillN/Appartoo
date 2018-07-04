@@ -19,7 +19,8 @@ class TodoController extends Controller{
      */
     public function listAction(){
 
-        $todos = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAll();
+        $id = $this->getUser()->getId();
+        $todos = $this->getDoctrine()->getRepository('AppBundle:Todo')->findBy(array('userId' => $id));
 
         return $this->render('todo/index.html.twig', array(
             'todos' => $todos
@@ -32,13 +33,14 @@ class TodoController extends Controller{
      */
     public function createAction(Request $request){
         $todo = new Todo;
+        $id = $this->getUser()->getId();
         $form = $this->createFormBuilder($todo)
-            ->add('name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('category', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('priority', ChoiceType::class, array('choices' => array('Low' => 'Low', "Normal" => "Normal", "High" => "High" ), 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('due_date', DateTimeType::class, array('attr' => array('style' => 'margin-bottom:15px')))
-            ->add('save', SubmitType::class, array('label' => 'Create Todo', 'attr' => array('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
+            ->add('name', TextType::class, array('label' => 'Nom', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('category', TextType::class, array('label' => 'Catégorie', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('description', TextareaType::class, array('label' => 'Description', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('priority', ChoiceType::class, array('label' => 'Priorité', 'choices' => array('Basse' => 'Low', "Normale" => "Normal", "Haute" => "High" ), 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('due_date', DateTimeType::class, array('label' => 'Deadline', 'attr' => array('style' => 'margin-bottom:15px')))
+            ->add('save', SubmitType::class, array('label' => 'Valider', 'attr' => array('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
             ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -54,12 +56,13 @@ class TodoController extends Controller{
             $todo->setPriority($priority);
             $todo->setDueDate($due_date);
             $todo->setCreateDate($now);
+            $todo->setUserId($id);
             $em = $this->getDoctrine()->getManager();
             $em->persist($todo);
             $em->flush();
             $this->addFlash(
                 'notice',
-                'Todo Added'
+                'Todo créé'
             );
             return $this->redirectToRoute('todo_list');
         }
@@ -81,12 +84,12 @@ class TodoController extends Controller{
         $todo->setDueDate($todo->getDueDate());
         $todo->setCreateDate($now);
         $form = $this->createFormBuilder($todo)
-            ->add('name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('category', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('priority', ChoiceType::class, array('choices' => array('Low' => 'Low', "Normal" => "Normal", "High" => "High" ), 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('due_date', DateTimeType::class, array('attr' => array('style' => 'margin-bottom:15px')))
-            ->add('save', SubmitType::class, array('label' => 'Update Todo', 'attr' => array('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
+            ->add('name', TextType::class, array('label' => 'Nom', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('category', TextType::class, array('label' => 'Catégorie', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('description', TextareaType::class, array('label' => 'Description', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('priority', ChoiceType::class, array('label' => 'Priorité', 'choices' => array('Basse' => 'Low', "Normale" => "Normal", "Haute" => "High" ), 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('due_date', DateTimeType::class, array('label' => 'Deadline', 'attr' => array('style' => 'margin-bottom:15px')))
+            ->add('save', SubmitType::class, array('label' => 'Valider', 'attr' => array('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
             ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -94,7 +97,7 @@ class TodoController extends Controller{
             $em->flush();
             $this->addFlash(
                 'notice',
-                'Todo Updated'
+                'Todo mis à jour'
             );
             return $this->redirectToRoute('todo_list');
         }
@@ -126,7 +129,7 @@ class TodoController extends Controller{
         $em->flush();
         $this->addFlash(
             'notice',
-            'Todo Removed'
+            'Todo supprimé'
         );
         return $this->redirectToRoute('todo_list');
     }

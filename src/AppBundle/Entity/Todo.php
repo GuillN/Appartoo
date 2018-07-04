@@ -65,6 +65,25 @@ class Todo
 
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $userId;
+
+    /**
+     * @return mixed
+     */
+    public function getUserId() {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId) {
+        $this->userId = $userId;
+    }
+
+    /**
      * Get id
      *
      * @return int

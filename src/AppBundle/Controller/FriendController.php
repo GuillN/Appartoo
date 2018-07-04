@@ -20,8 +20,8 @@ class FriendController extends Controller{
 
         //create form
         $form = $this->createFormBuilder()
-            ->add('name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('search', SubmitType::class, array('label' => 'Add Friend', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('name', TextType::class, array('label' => 'Nom', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('search', SubmitType::class, array('label' => 'Ajouter', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
         $form->handleRequest($request);
 
@@ -35,15 +35,21 @@ class FriendController extends Controller{
             //if not exists
             if (null === $user) {
                 $this->addFlash('error', "Cet utilisateur n'existe pas");
+            }elseif ($current_user === $user){
+                $this->addFlash('error', "Vous ne pouvez pas vous ajouter vous même!");
+            }
+            elseif($current_user->getFriends()->contains($user)) {
+                $this->addFlash('error', "Cet utilisateur est deja votre ami");
             }else{
                 //add friend
                 $current_user->addFriend($user);
                 $user->addFriend($current_user);
+                $this->addFlash('notice', 'Ami ajouté');
             }
             $em->persist($current_user);
             $em->flush();
 
-            $this->addFlash('notice', 'Friend Added');
+
         }
         //get friends
         $friends = $current_user->getFriends();
@@ -65,7 +71,7 @@ class FriendController extends Controller{
         $em->flush();
         $this->addFlash(
             'notice',
-            'Ami Supprimé'
+            'Ami supprimé'
         );
         return $this->redirectToRoute('friends');
     }

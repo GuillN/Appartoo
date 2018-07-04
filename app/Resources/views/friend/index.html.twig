@@ -4,7 +4,8 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
-    <h2 class="page-header">Liste de vos amis</h2>
+    {% if friends|length > 0 %}
+        <h2 class="page-header">Liste d'amis</h2>
 
         <table class="table table-striped">
             <thead>
@@ -27,4 +28,5 @@
             {% endfor %}
             </tbody>
         </table>
+    {% endif %}
 {% endblock %}
