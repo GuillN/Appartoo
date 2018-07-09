@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <a class="btn btn-default" href="/todo" >Retour aux todos</a>
+    <a class="btn btn-default" href="{{ path('todo_list') }}" >Retour aux todos</a>
     <hr>
     <h2 class="page-header">{{ todo.name }}</h2>
     <ul class="list-group">

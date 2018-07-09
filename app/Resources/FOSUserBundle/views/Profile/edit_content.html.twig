@@ -11,7 +11,7 @@
 
 <div>
     <input class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-    <a href="/profile" class="btn btn-info">Retour</a>
+    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-info">Retour</a>
     <input type="reset" class="btn btn-warning" value="Annuler">
 </div>
 {{ form_end(form) }}

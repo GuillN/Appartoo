@@ -22,6 +22,6 @@
     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
 
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary" style="margin-left: 15px"/>
-    <a href="/register" class="btn btn-info">Créer un compte</a>
+    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-info">Créer un compte</a>
 
 </form>

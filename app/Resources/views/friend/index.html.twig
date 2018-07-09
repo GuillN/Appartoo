@@ -21,8 +21,8 @@
                     <th scope="row">{{ friend.username }}</th>
                     <td>{{ friend.race }}</td>
                     <td>
-                        <a href="/friend/details/{{ friend.id }}" class="btn btn-success">Détails</a>
-                        <a href="/friend/delete/{{ friend.id }}" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('friend_details', {'id': friend.id}) }}" class="btn btn-success">Détails</a>
+                        <a href="{{ path('friend_delete', {'id': friend.id}) }}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

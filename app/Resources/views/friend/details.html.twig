@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <a class="btn btn-default" href="/friends" >Retour à la liste</a>
+    <a class="btn btn-default" href="{{ path('friends') }}" >Retour à la liste</a>
     <hr>
     <h2 class="page-header">{{ user.username }}</h2>
     <ul class="list-group">

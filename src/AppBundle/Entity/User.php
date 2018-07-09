@@ -148,6 +148,4 @@ class User extends BaseUser{
         $this->race = $race;
     }
 
-
-
 }

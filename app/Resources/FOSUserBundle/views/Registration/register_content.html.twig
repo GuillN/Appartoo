@@ -8,6 +8,6 @@
     {{ form_row(form.plainPassword) }}
 <div>
     <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans }}" />
-    <a href="/login" class="btn btn-info">Retour</a>
+    <a href="{{ path('fos_user_security_login') }}" class="btn btn-info">Retour</a>
 </div>
 {{ form_end(form) }}

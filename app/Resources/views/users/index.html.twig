@@ -16,7 +16,7 @@
                     <th scope="row">{{ user.id }}</th>
                     <td>{{ user.username }}</td>
                     <td>
-                        <a href="/user/delete/{{ user.id }}" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('user_delete',{'id': user.id}) }}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

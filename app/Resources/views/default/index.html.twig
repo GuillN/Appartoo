@@ -3,12 +3,12 @@
 {% block body %}
     <h1 class="page-header">Bienvenue sur SpaceBook!</h1>
 {% if is_granted('ROLE_SUPER_ADMIN') %}
-    <a href="/users" class="btn-lg btn-link">Liste des utilisateurs</a>
+    <a href="{{ path('user_list') }}" class="btn-lg btn-link">Liste des utilisateurs</a>
 {% elseif is_granted('ROLE_USER') %}
-    <a href="/friends" class="btn-lg btn-link">Consultez vos amis</a>
-    <a href="/profile" class="btn-lg btn-link">Modifiez votre profil</a>
+    <a href="{{ path('friends') }}" class="btn-lg btn-link">Consultez vos amis</a>
+    <a href="{{ path('fos_user_profile_show') }}" class="btn-lg btn-link">Modifiez votre profil</a>
 {% else %}
-    <a href="/login" class="btn-lg btn-link">Connectez vous</a>
-    <a href="/register" class="btn-lg btn-link">Créez un compte</a>
+    <a href="{{ path('fos_user_security_login') }}" class="btn-lg btn-link">Connectez vous</a>
+    <a href="{{ path('fos_user_registration_register') }}" class="btn-lg btn-link">Créez un compte</a>
 {% endif %}
 {% endblock %}
