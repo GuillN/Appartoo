@@ -1,29 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block head %}
-    <script src="recherche.js"></script>
-{% endblock %}
-
 {% block body %}
-    {#{{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}#}
-    <h2 class="page-header">Ajouter un ami</h2>
-
-
-
-    <div ng-app="recherche">
-        <h2>ng-repeat</h2>
-        <div ng-controller="rechercheCtrl">
-            {#<div ng-repeat="user in liste">
-                <h2>{{user.username}}</h2>
-                <div>{{user.email}}</div>
-            </div>#}
-        </div>
-    </div>
-
-
-
+    <a class="btn btn-success" href="{{ path('friend_add') }}" >Ajouter un ami</a>
+    <hr>
 
     {% if friends|length > 0 %}
         <h2 class="page-header">Liste d'amis</h2>

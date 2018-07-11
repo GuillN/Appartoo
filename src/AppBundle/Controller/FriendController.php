@@ -20,7 +20,7 @@ class FriendController extends Controller{
      */
     public function indexAction(Request $request/*, UserInterface $current_user*/){
 
-        //create form
+        /*//create form
         $form = $this->createFormBuilder()
             ->add('name', TextType::class, array('label' => 'Nom', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
             ->add('search', SubmitType::class, array('label' => 'Ajouter', 'attr' => array('class' => 'btn btn-primary')))
@@ -50,15 +50,50 @@ class FriendController extends Controller{
             }
             $em->persist($current_user);
             $em->flush();
-        }
+        }*/
 
 
 
         //get friends
+        $current_user = $this->getUser();
         $friends = $current_user->getFriends();
 
 
-        return $this->render('friend/index.html.twig',  array('form' => $form->createView(), 'friends' => $friends));
+        return $this->render('friend/index.html.twig',  array('friends' => $friends));
+    }
+
+    /**
+     * @Route("/friend/add", name="friend_add")
+     */
+    public function addAction(){
+        return $this->render('friend/add.html.twig');
+    }
+
+    public function addFriendAction($id){
+
+        $em = $this->getDoctrine()->getManager();
+        $userManager = $this->get('fos_user.user_manager');
+        $friend = $userManager->findUserBy(array('id' => $id));
+        $user = $this->getUser();
+        if (null === $friend) {
+            $this->addFlash('error', "Cet utilisateur n'existe pas");
+            return $this->redirectToRoute('friend_add');
+        }elseif ($user === $friend){
+            $this->addFlash('error', "Vous ne pouvez pas vous ajouter vous même!");
+            return $this->redirectToRoute('friend_add');
+        }
+        elseif($user->getFriends()->contains($friend)) {
+            $this->addFlash('error', "Cet utilisateur est deja votre ami");
+            return $this->redirectToRoute('friend_add');
+        }else{
+            //add friend
+            $user->addFriend($friend);
+            $friend->addFriend($user);
+            $this->addFlash('notice', 'Ami ajouté');
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('friends');
+        }
     }
 
     /**

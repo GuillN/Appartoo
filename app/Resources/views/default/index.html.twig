@@ -6,6 +6,7 @@
     <a href="{{ path('user_list') }}" class="btn-lg btn-link">Liste des utilisateurs</a>
 {% elseif is_granted('ROLE_USER') %}
     <a href="{{ path('friends') }}" class="btn-lg btn-link">Consultez vos amis</a>
+    <a href="{{ path('todo_list') }}" class="btn-lg btn-link">Consultez vos todos</a>
     <a href="{{ path('fos_user_profile_show') }}" class="btn-lg btn-link">Modifiez votre profil</a>
 {% else %}
     <a href="{{ path('fos_user_security_login') }}" class="btn-lg btn-link">Connectez vous</a>

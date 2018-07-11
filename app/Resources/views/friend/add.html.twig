@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <a class="btn btn-default" href="{{ path('friends') }}" >Retour aux amis</a>
+    <hr>
+
+    <h2 class="page-header">Ajouter un ami</h2>
+
+    <div ng-app="search">
+        <div ng-controller="searchControl">
+            <input type="text" ng-model="userFilter" style="width: 100%; margin-bottom: 15px;">
+            <div>
+                <ul>
+                    <div style="margin-bottom: 20px" ng-repeat="user in liste | filter: userFilter">
+                        <li style="display: inline" >{% verbatim %}{{user.username}}{% endverbatim %}</li>
+                        <a href="add-{% verbatim %}{{user.id}}{% endverbatim %}" class="btn btn-success btn-xs pull-right">Ajouter</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
