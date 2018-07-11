@@ -4,8 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -48,9 +50,10 @@ class FriendController extends Controller{
             }
             $em->persist($current_user);
             $em->flush();
-
-
         }
+
+
+
         //get friends
         $friends = $current_user->getFriends();
 
@@ -86,5 +89,25 @@ class FriendController extends Controller{
         return $this->render('friend/details.html.twig', array(
             'user' => $user
         ));
+    }
+
+    /**
+     * @Route("/usersjson", name="users_json")
+     * @Method({"GET"})
+     */
+    public function getUsersAction(Request $request)
+    {
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('AppBundle:User')
+            ->findBy(array(), array('username' => 'asc'));
+        $formatted = [];
+        foreach ($users as $user) {
+            $formatted[] = [
+                'id' => $user->getId(),
+                'username' => $user->getUsername(),
+                'email' => $user->getEmail(),
+            ];
+        }
+        return new JsonResponse($formatted);
     }
 }
