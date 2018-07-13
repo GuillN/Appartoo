@@ -15,6 +15,30 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository implements UserLoaderInterface{
 
 
+    public function createFindAllQuery(){
+        return $this->_em->createQuery(
+            "
+            SELECT u.username, u.race
+            FROM AppBundle:User u
+            "
+        );
+    }
+
+    public function createFindFriendsQuery($id)
+    {
+        $query = $this->_em->createQuery(
+            "
+            SELECT u.friends
+            FROM AppBundle:User u
+            WHERE u.id = :id
+            "
+        );
+
+        $query->setParameter('id', $id);
+
+        return $query;
+    }
+
     public function loadUserByUsername($username) {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username OR u.email = :email')

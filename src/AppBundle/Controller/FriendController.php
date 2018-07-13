@@ -3,7 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use Doctrine\DBAL\Schema\View;
+use EXSyst\Component\Swagger\Response;
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\UserBundle\Model\UserInterface;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,46 +18,47 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class FriendController extends Controller{
+class FriendController extends FOSRestController implements ClassResourceInterface {
 
     /**
-     * @Route("/friends", name="friends")
+     * Gets friends of User
+     *
+     * @param int $id
+     * @return mixed
+     * @Route("/friend/{id}")
+     * @Method("GET")
+     * @ApiDoc(
+     *     output="AppBundle\Entity\User",
+     *     statusCodes={
+     *         200 = "Returned when successful",
+     *         404 = "Return when not found"
+     *     }
+     * )
      */
-    public function indexAction(Request $request/*, UserInterface $current_user*/){
+    public function getAction($id){
+        return $this->get('crv.doctrine_entity_repository.user')->createFindFriendsQuery($id)->getSingleResult();
+    }
 
-        /*//create form
-        $form = $this->createFormBuilder()
-            ->add('name', TextType::class, array('label' => 'Nom', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-            ->add('search', SubmitType::class, array('label' => 'Ajouter', 'attr' => array('class' => 'btn btn-primary')))
-            ->getForm();
-        $form->handleRequest($request);
-
-        $em = $this->getDoctrine()->getManager();
-        $current_user = $this->getUser();
-        if($form->isSubmitted() && $form->isValid()) {
-            //get friend
-            $username = $form['name']->getData();
-            $userManager = $this->get('fos_user.user_manager');
-            $user = $userManager->findUserBy(array('username' => $username));
-            //if not exists
-            if (null === $user) {
-                $this->addFlash('error', "Cet utilisateur n'existe pas");
-            }elseif ($current_user === $user){
-                $this->addFlash('error', "Vous ne pouvez pas vous ajouter vous même!");
-            }
-            elseif($current_user->getFriends()->contains($user)) {
-                $this->addFlash('error', "Cet utilisateur est deja votre ami");
-            }else{
-                //add friend
-                $current_user->addFriend($user);
-                $user->addFriend($current_user);
-                $this->addFlash('notice', 'Ami ajouté');
-            }
-            $em->persist($current_user);
-            $em->flush();
-        }*/
+    /**
+     * @Route("/friends")
+     * @Method("GET")
+     */
+    public function cgetAction(){
+        return $this->get('crv.doctrine_entity_repository.user')->createFindAllQuery()->getResult();
+    }
 
 
+
+    public function deleteAction($id){
+
+    }
+
+
+
+    /**
+     * @Route("/friends_old", name="friends")
+     */
+    public function indexAction(Request $request){
 
         //get friends
         $current_user = $this->getUser();
@@ -97,9 +103,9 @@ class FriendController extends Controller{
     }
 
     /**
-     * @Route("/friend/delete/{id}", name="friend_delete")
+     * @Route("/friend/delete_old/{id}", name="friend_delete")
      */
-    public function deleteAction($id){
+    public function deleteOldAction($id){
         $em = $this->getDoctrine()->getManager();
 
         $friend = $em->getRepository('AppBundle:User')->find($id);

@@ -12,3 +12,27 @@ friend_new:
     path: /friend/add-{id}
     defaults:
         _controller: AppBundle:Friend:addFriend
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix: "/doc"
+
+api:
+    type: rest
+    resource: "routing_api.yml"
+    #path: /api
+    #controller: AppBundle\Controller\AuthController::api
+
+#register:
+#    path: /register
+#    controller: AppBundle\Controller\AuthController::register
+#    methods: POST
+
+#login_check:
+#    path: /login_check
+#    methods: [POST]
+#fos_oauth_server_token:
+#    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+#api_login_check:
+#    path: /api/login_check

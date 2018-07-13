@@ -33,7 +33,13 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    app.form.registration:
-        class: AppBundle\Form\RegistrationFormType
-    app.form.profile:
-        class: AppBundle\Form\ProfileFormType
+    #app.form.registration:
+    #    class: AppBundle\Form\RegistrationFormType
+    #app.form.profile:
+    #    class: AppBundle\Form\ProfileFormType
+    crv.doctrine_entity_repository.user:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - AppBundle\Entity\User
+        public: true
