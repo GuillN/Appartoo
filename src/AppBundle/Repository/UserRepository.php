@@ -2,8 +2,9 @@
 
 namespace AppBundle\Repository;
 
-use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * UserRepository
@@ -18,7 +19,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface{
     public function createFindAllQuery(){
         return $this->_em->createQuery(
             "
-            SELECT u.username, u.race
+            SELECT u.id, u.username
             FROM AppBundle:User u
             "
         );
@@ -26,12 +27,10 @@ class UserRepository extends EntityRepository implements UserLoaderInterface{
 
     public function createFindFriendsQuery($id)
     {
+
         $query = $this->_em->createQuery(
-            "
-            SELECT u.friends
-            FROM AppBundle:User u
-            WHERE u.id = :id
-            "
+            "select u.username, u.id from AppBundle:User u where :id member of u.friends"
+            /*"select u from AppBundle:User u where :id member of u.friends"*/
         );
 
         $query->setParameter('id', $id);
@@ -39,11 +38,20 @@ class UserRepository extends EntityRepository implements UserLoaderInterface{
         return $query;
     }
 
+    /*public function createAddF*/
+
+    public function loadUserByEmail($email) {
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function loadUserByUsername($username) {
         return $this->createQueryBuilder('u')
-            ->where('u.username = :username OR u.email = :email')
+            ->where('u.username = :username')
             ->setParameter('username', $username)
-            ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
     }

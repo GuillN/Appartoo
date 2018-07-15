@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  */
-class User extends BaseUser/* implements \Serializable, UserInterface */{
+class User extends BaseUser implements \Serializable, UserInterface {
 
     public function __construct() {
         parent::__construct();
@@ -50,7 +50,6 @@ class User extends BaseUser/* implements \Serializable, UserInterface */{
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
-     * @ORM\Column(type="string")
      */
     private $friends;
 
@@ -191,7 +190,7 @@ class User extends BaseUser/* implements \Serializable, UserInterface */{
 
 
 
-    /*public function getRoles() {
+    public function getRoles() {
         return array('ROLE_USER');
     }
 
@@ -220,5 +219,5 @@ class User extends BaseUser/* implements \Serializable, UserInterface */{
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized, array('allowed_classes' => false));
-    }*/
+    }
 }

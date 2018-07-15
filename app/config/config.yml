@@ -38,7 +38,7 @@ nelmio_cors:
     defaults:
         allow_origin:  ["http://localhost:8000"]
         allow_methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS"]
-        allow_headers: ["content-type", "authorization"]
+        allow_headers: ["content-type", "authorization", "X-Auth-Token"]
         max_age:       3600
     paths:
         '^/': ~
@@ -134,6 +134,11 @@ fos_rest:
             - { path: ^/, priorities: [ json, jsonp ], fallback_format: ~, prefer_extension: true }
     exception:
         enabled: true
+        messages:
+            'Symfony\Component\HttpKernel\Exception\HttpException': true
+            'Symfony\Component\Security\Core\Exception\BadCredentialsException': true
+        codes:
+            'Symfony\Component\Security\Core\Exception\BadCredentialsException': 401
 
 #fos_oauth_server:
  #   db_driver:           orm

@@ -8,10 +8,19 @@ fos_user:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
+auth-tokens:
+    type:     rest
+    resource: AppBundle\Controller\AuthTokenController
+
 friend_new:
     path: /friend/add-{id}
     defaults:
         _controller: AppBundle:Friend:addFriend
+
+friend_delete:
+    path: /friends/{id}
+    defaults:
+        _controller: AppBundle:Friend:delete
 
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
