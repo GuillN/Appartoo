@@ -17,6 +17,7 @@ class User extends BaseUser implements \Serializable, UserInterface {
     public function __construct() {
         parent::__construct();
         $this->friends = new ArrayCollection();
+        $this->enabled = true;
     }
 
     /**
