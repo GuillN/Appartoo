@@ -1,0 +1,29 @@
+<a class="btn btn-default" href="/#!/friends" >Retour aux amis</a>
+<hr>
+
+<h2 class="page-header">Ajouter un ami dans la liste</h2>
+
+<div>
+    <div>
+        <input type="text" ng-model="userFilter" style="width: 100%; margin-bottom: 15px;">
+        <div>
+            <ul>
+                <div style="margin-bottom: 20px" ng-repeat="user in users | filter: userFilter">
+                    <li style="display: inline" >{{user.username}}</li>
+                    <a ng-click="addFriend(user.id)" class="btn btn-success btn-xs pull-right">Ajouter</a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<h2 class="page-header">Ajouter un ami</h2>
+
+<div ng-app="friends" ng-controller="addFriendCtrl">
+
+    <label for="username">Nom d'utilisateur</label>
+    <input ng-model="newUser.username" type="text" id="username" name="username" value="" required="required" autocomplete="username" class="form-control" style="margin-bottom: 15px"/>
+
+    <input ng-click="registerNewUser(newUser)" type="button" value="Créer un ami" class="btn btn-primary" style="margin-left: 15px"/>
+
+</div>

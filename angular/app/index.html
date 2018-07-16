@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Space Book</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-controller="MainCtrl as mc">
+
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/#!/home">SpaceBook</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <!--<ul class="nav navbar-nav">
+              <li><a href="{{ path('user_list') }}">Utilisateurs</a></li>
+              <li><a href="{{ path('todo_list') }}">Todo</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{{ path('fos_user_security_logout') }}" class="btn">Déconnexion</a> </li>
+            </ul>-->
+
+            <div ng-if="mc.log.connected">
+                <ul class="nav navbar-nav">
+                    <li><a href="#!/friends">Amis</a></li>
+                    <!--<li><a href="">Todo</a></li>-->
+                    <li><a href="/#!/profile">Profil</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ng-click="logout()" class="btn">Déconnexion</a> </li>
+                </ul>
+            </div>
+
+            <div ng-if="!mc.log.connected">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/#!/login">Connexion</a> </li>
+                    <li><a href="/#!/register">Créer un compte</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div ng-view id="content"></div>
+
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="app.js"></script>
+<script src="friends/friends.js"></script>
+<script src="home/home.js"></script>
+<script src="login/login.js"></script>
+</body>
+</html>

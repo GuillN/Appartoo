@@ -1,0 +1,20 @@
+
+<h2 class="page-header">Connexion</h2>
+
+
+
+<div ng-app="login" ng-controller="loginCtrl">
+
+    <label for="login">Nom d'utilisateur</label>
+    <input ng-model="data.login" type="text" id="login" name="login" value="" required="required" autocomplete="login" class="form-control" style="margin-bottom: 15px"/>
+
+    <label for="password">Mot de passe</label>
+    <input ng-model="data.password" type="password" id="password" name="password" required="required" autocomplete="current-password" class="form-control" style="margin-bottom: 15px"/>
+
+
+
+    <input ng-click="mc.log.postdata(data)" type="button" value="Connexion" class="btn btn-primary" style="margin-left: 15px"/>
+    <a href="/#!/register" class="btn btn-info">Créer un compte</a>
+
+
+</div>

@@ -1,0 +1,21 @@
+<a class="btn btn-success" href="/#!/friend/add" >Ajouter un ami</a>
+<hr>
+<h2 class="page-header">Liste d'amis</h2>
+<table class="table table-hover table-responsive">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <!--<th>Race</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="name in names">
+        <td>{{ name.username }}</td>
+        <!--<td>{{ name.race }}</td>-->
+        <td>
+            <a ng-click="mc.log.viewFriend(name.id)" class="btn btn-default btn-sm">Détails</a>
+            <a ng-click="deleteFriend(name.id)" class="btn btn-danger btn-sm">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

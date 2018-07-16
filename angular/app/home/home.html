@@ -1,0 +1,14 @@
+<h1 class="page-header">Bienvenue sur SpaceBook!</h1>
+
+
+<!--<a href="{{ path('user_list') }}" class="btn-lg btn-link">Liste des utilisateurs</a>-->
+<div ng-if="mc.log.connected">
+    <a href="#!/friends" class="btn-lg btn-link">Consultez vos amis</a>
+    <a href="#!/todos" class="btn-lg btn-link">Consultez vos todos</a>
+    <a href="#!/profile" class="btn-lg btn-link">Modifiez votre profil</a>
+</div>
+
+<div ng-if="!mc.log.connected">
+    <a href="/#!/login" class="btn-lg btn-link">Connectez vous</a>
+    <a href="/#!/register" class="btn-lg btn-link">Créez un compte</a>
+</div>

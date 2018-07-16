@@ -1,0 +1,19 @@
+
+<h2 class="page-header">Créer un compte</h2>
+
+<div ng-app="login" ng-controller="registerCtrl">
+
+    <label for="username">Nom d'utilisateur</label>
+    <input ng-model="newData.username" type="text" id="username" name="username" value="" required="required" autocomplete="username" class="form-control" style="margin-bottom: 15px"/>
+
+    <label for="email">Adresse mail</label>
+    <input ng-model="newData.email" type="text" id="email" name="email" value="" required="required" autocomplete="email" class="form-control" style="margin-bottom: 15px"/>
+
+    <label for="password">Mot de passe</label>
+    <input ng-model="newData.password" type="password" id="password" name="password" required="required" autocomplete="current-password" class="form-control" style="margin-bottom: 15px"/>
+
+    <input ng-click="registerUser(newData)" type="button" value="Créer un compte" class="btn btn-primary" style="margin-left: 15px"/>
+    <a href="/#!/login" class="btn btn-info">Retour</a>
+
+
+</div>
