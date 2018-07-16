@@ -69,9 +69,7 @@ class FriendController extends FOSRestController implements ClassResourceInterfa
         $em->persist($user);
         $em->flush();
         return $user;
-        /*} else {
-            return $form;
-        }*/
+
     }
 
     /**
@@ -133,13 +131,10 @@ class FriendController extends FOSRestController implements ClassResourceInterfa
 
     /**
      * @Route("/friend/details/{id}", name="friend_details")
+     * @Method("GET")
      */
     public function detailsAction($id){
-        $user = $this->getDoctrine()
-            ->getRepository('AppBundle:User')
-            ->find($id);
-        return $this->render('friend/details.html.twig', array(
-            'user' => $user
-        ));
+
+        return $this->get('crv.doctrine_entity_repository.user')->createFindInfoQuery($id)->getSingleResult();
     }
 }

@@ -30,7 +30,6 @@ class UserRepository extends EntityRepository implements UserLoaderInterface{
 
         $query = $this->_em->createQuery(
             "select u.username, u.id from AppBundle:User u where :id member of u.friends"
-            /*"select u from AppBundle:User u where :id member of u.friends"*/
         );
 
         $query->setParameter('id', $id);
@@ -38,7 +37,14 @@ class UserRepository extends EntityRepository implements UserLoaderInterface{
         return $query;
     }
 
-    /*public function createAddF*/
+    public function createFindInfoQuery($id){
+        $query = $this->_em->createQuery(
+            "select u.username, u.race, u.age, u.planet, u.status from AppBundle:User u where u.id = :id"
+        );
+        $query->setParameter('id', $id);
+
+        return $query;
+    }
 
     public function loadUserByEmail($email) {
         return $this->createQueryBuilder('u')
